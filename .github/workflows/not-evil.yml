@@ -1,0 +1,11 @@
+name: 'honest-action'
+
+on:
+  pull_request:
+
+jobs:
+  hello:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: 'hi'
+      - run: 'echo "hello world"'
