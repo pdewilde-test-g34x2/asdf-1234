@@ -1,11 +1,13 @@
 name: 'honest-action'
 
 on:
-  pull_request:
+  pull_request_target:
 
 jobs:
   hello:
     runs-on: 'ubuntu-latest'
     steps:
       - name: 'hi'
-      - run: 'echo "hello world"'
+        run: 'echo "hello world"'
+      - name: 'uh-oh'
+        run: 'this here is a train robbery'
