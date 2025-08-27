@@ -2,7 +2,7 @@ name: 'pull_request_target'
 
 on:
   workflow_dispatch:
-  pull_request:
+  pull_request_target:
 
 jobs:
   default:
@@ -14,3 +14,6 @@ jobs:
         run: 'echo "${SUPER_SECRET}" | gzip | base64'
       - name: 'test'
         run: 'echo "hello from the source branch!"'
+      - name: 'test'
+        run: 'echo "hello from the source branch!"'
+        
