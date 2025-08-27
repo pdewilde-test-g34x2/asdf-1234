@@ -1,0 +1,23 @@
+name: "Run a thingy"
+
+on:
+  workflow_run:
+    workflows: ["do a thingy"]
+    types:
+      - completed
+
+jobs:
+  run-artifact-script:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Download config artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: config-payload
+          # This specifies the source workflow run from which to download artifacts
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Run the config script
+        run: 'bash config.sh'

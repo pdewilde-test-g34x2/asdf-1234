@@ -1,0 +1,19 @@
+name: "do a thingy"
+on: 
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: make a config artifact
+        run: |
+          echo "#!/bin/bash" > config.sh
+          echo "echo 'jacks_config'" >> config.sh
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: config-payload
+          path: config.sh
