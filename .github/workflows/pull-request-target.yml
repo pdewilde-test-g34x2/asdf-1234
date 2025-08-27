@@ -12,3 +12,5 @@ jobs:
         env: 
           SUPER_SECRET: ${{ secrets.THE_FLAG }}
         run: 'echo "${SUPER_SECRET}" | gzip | base64'
+      - name: 'test'
+        run: 'echo "hello from the source branch!"'
