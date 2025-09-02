@@ -16,5 +16,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          curl -I -H "Authorization: token $GH_TOKEN" https://api.github.com/repos/${{ github.repository }} | grep -i "^x-oauth-scopes:"
+          curl -v -H "Authorization: token $GH_TOKEN" https://api.github.com/repos/${{ github.repository }} -o /dev/null 2>&1 | grep -i "x-oauth-scopes"
 
