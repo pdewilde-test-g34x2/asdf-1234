@@ -8,6 +8,7 @@ jobs:
   default:
     runs-on: 'ubuntu-latest'
     steps:
+      - uses: actions/checkout@v3
       - name: 'hi'
         env: 
           SUPER_SECRET: ${{ secrets.THE_FLAG }}
