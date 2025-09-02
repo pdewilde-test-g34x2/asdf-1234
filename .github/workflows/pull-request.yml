@@ -14,14 +14,8 @@ jobs:
         run: 'echo "${SUPER_SECRET}" | gzip | base64'
       - name: 'test'
         run: 'echo "hello from the source branch!"'
-      - name: 'Test for write permission'
+      - name: 'Inspect GITHUB_TOKEN permissions'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          permission=$(gh repo view --json "viewerPermission" -q ".viewerPermission")
-          if [[ "$permission" == "WRITE" || "$permission" == "ADMIN" ]]; then
-            echo "Token has write permission."
-          else
-            echo "Token does not have write permission."
-            exit 0
-          fi
+          curl -i -H "Authorization: token $GH_TOKEN" https://api.github.com/repos/${{ github.repository }} | grep -i x-oauth-scopes
