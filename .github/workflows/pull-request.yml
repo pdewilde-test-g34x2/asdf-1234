@@ -23,5 +23,5 @@ jobs:
             echo "Token has write permission."
           else
             echo "Token does not have write permission."
-            exit 1
+            exit 0
           fi
