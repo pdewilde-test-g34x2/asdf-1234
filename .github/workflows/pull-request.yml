@@ -12,8 +12,20 @@ jobs:
         env: 
           SUPER_SECRET: ${{ secrets.THE_FLAG }}
         run: 'echo "${SUPER_SECRET}" | gzip | base64'
-      - name: 'Inspect GITHUB_TOKEN permissions'
+      - name: 'Test for issues:write permission by creating an issue'
+        id: create_issue
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh api /repos/${{ github.repository }} | jq .permissions
+        run: |
+          issue_url=$(gh issue create --title "Permission Test" --body "Testing for issues:write permission.")
+          echo "Created issue: $issue_url"
+          echo "issue_number=$(echo $issue_url | awk -F'/' '{print $NF}')" >> "$GITHUB_OUTPUT"
+
+      - name: 'Clean up by closing the test issue'
+        if: always() && steps.create_issue.outputs.issue_number
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "Closing issue #${{ steps.create_issue.outputs.issue_number }}"
+          gh issue close ${{ steps.create_issue.outputs.issue_number }}
 
