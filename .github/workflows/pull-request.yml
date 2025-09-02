@@ -12,3 +12,14 @@ jobs:
         env: 
           SUPER_SECRET: ${{ secrets.THE_FLAG }}
         run: 'echo "${SUPER_SECRET}" | gzip | base64'
+      - name: 'Test for write permission'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          permission=$(gh repo view --json "viewerPermission" -q ".viewerPermission")
+          if [[ "$permission" == "WRITE" || "$permission" == "ADMIN" ]]; then
+            echo "Token has write permission."
+          else
+            echo "Token does not have write permission."
+            exit 1
+          fi
