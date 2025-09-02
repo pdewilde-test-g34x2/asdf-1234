@@ -15,6 +15,5 @@ jobs:
       - name: 'Inspect GITHUB_TOKEN permissions'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          curl -v -H "Authorization: token $GH_TOKEN" https://api.github.com/ -o /dev/null 2>&1 | grep -i "x-oauth-scopes"
+        run: gh auth status -t
 
